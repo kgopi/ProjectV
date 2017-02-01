@@ -3,8 +3,16 @@
 <head>
     <meta charset="UTF-8">
     <title>Project V</title>
+    <script src="../Web/js/lib/require.min.js"></script>
 </head>
 <body>
-
+    <div id="gs-recorder-wrapper"></div>
+    <script>
+        window.onload = function(){
+            require(["../Web/js/Recorder.js"], function(Recorder){
+                new Recorder({container: document.querySelector('#gs-recorder-wrappe')});
+            });
+        }
+    </script>
 </body>
 </html>
