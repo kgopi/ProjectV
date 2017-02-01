@@ -53,7 +53,7 @@ class Recorder{
     }
 
     private stopRecording(eve){
-
+        /**/
     }
 
     private render(){
