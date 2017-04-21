@@ -7,10 +7,11 @@
 </head>
 <body>
     <div id="gs-recorder-wrapper"></div>
+    <video id="recorded-video" src="" autoplay=false></video>
     <script>
         window.onload = function(){
-            require(["../Web/js/Recorder.js"], function(Recorder){
-                new Recorder({container: document.querySelector('#gs-recorder-wrappe')});
+            require(["../Web/js/Recorder"], function(Recorder){
+                new Recorder({container: document.querySelector('#gs-recorder-wrapper')});
             });
         }
     </script>

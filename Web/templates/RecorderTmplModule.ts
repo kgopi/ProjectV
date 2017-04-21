@@ -9,10 +9,11 @@ module RecorderTmplModule{
             <div class="gs-recorder-toolbar">
                 <button id="startBtn">Start</button>
                 <button id="stopBtn">Stop</button>
+                <button id="publishBtn">Publish</button>
                 <button id="settingsBtn">Settings</button>
             </div>
             <div class="gs-recorder-main">
-                <video id="gs-recorder"></video>
+                <video id="gs-recorder" src="" autoplay muted></video>
             </div>
         </div>`;
 
