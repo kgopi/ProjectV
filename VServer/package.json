@@ -1,0 +1,19 @@
+{
+  "name": "ProjectV",
+  "version": "0.0.1",
+  "description": "Experiment",
+  "scripts": {},
+  "repository": {
+    "type": "git",
+    "url": ""
+  },
+  "dependencies": {
+    "aws-cloudfront-sign": "^2.1.2",
+    "aws-sdk": "^2.2.18",
+    "concat-stream": "^1.5.1",
+    "express": "4.x",
+    "lodash": "^3.10.1",
+    "node-uuid": "1.4.3",
+    "ws": "^2.0.1"
+  }
+}
