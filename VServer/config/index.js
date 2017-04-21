@@ -18,6 +18,12 @@ function configure(env) {
         }
     };
 
+    config.listenPort = env.API_LISTEN_PORT || 7000;
+    config.sslCert = {
+        'key': env.SSL_KEY_FILE || './cert/local/server.key',
+        'cert': env.SSL_CERT_FILE || './cert/local/server.crt'
+    };
+
     config.aws = {
         folders: {
             raw: "raw"

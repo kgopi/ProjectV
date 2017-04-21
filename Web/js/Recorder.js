@@ -31,7 +31,7 @@ define(["require", "exports", "./../js/utils/DomUtil", "./../templates/RecorderT
                 recorder: null,
                 connection: null,
                 fileName: null,
-                websocketEndpoint: 'ws://' + this.options.sessionId + '__' + this.options.userId + '@localhost:7000'
+                websocketEndpoint: 'wss://' + this.options.sessionId + '__' + this.options.userId + '@localhost:7000'
             };
             for (var attrname in options) {
                 this.options[attrname] = options[attrname];
@@ -102,23 +102,15 @@ define(["require", "exports", "./../js/utils/DomUtil", "./../templates/RecorderT
         };
         ;
         Recorder.prototype.beforeRecordStart = function () {
-            if (!this.controls.toolbar.startBtn.classList.contains('disable')) {
-                this.controls.toolbar.startBtn.classList.add('disable');
-            }
-            if (this.controls.toolbar.stopBtn.classList.contains('disable')) {
-                this.controls.toolbar.stopBtn.classList.remove('disable');
-            }
+            DomUtils.hide(this.controls.toolbar.startBtn);
+            DomUtils.show(this.controls.toolbar.stopBtn);
         };
         Recorder.prototype.afterRecordStop = function () {
-            if (this.controls.toolbar.startBtn.classList.contains('disable')) {
-                this.controls.toolbar.startBtn.classList.remove('disable');
-            }
-            if (!this.controls.toolbar.stopBtn.classList.contains('disable')) {
-                this.controls.toolbar.stopBtn.classList.add('disable');
-            }
+            DomUtils.hide(this.controls.toolbar.stopBtn);
+            DomUtils.show(this.controls.toolbar.startBtn);
         };
         Recorder.prototype.getRecorder = function () {
-            var options = { mimeType: 'video/webm', bitsPerSecond: 100000 };
+            var options = { mimeType: 'video/webm', audioBitsPerSecond: 128000 };
             this.data.recorder = new window['MediaRecorder'](this.data.mediaStream, options);
             this.data.recorder.ondataavailable = this.videoDataHandler.bind(this);
         };
@@ -130,7 +122,7 @@ define(["require", "exports", "./../js/utils/DomUtil", "./../templates/RecorderT
                 command: 'FILE_TOKEN',
                 token: this.data.fileName
             }));
-            this.data.recorder.start(10);
+            this.data.recorder.start(1000);
         };
         Recorder.prototype.stopRecording = function (eve) {
             this.data.recorder.stop();

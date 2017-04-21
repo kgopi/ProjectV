@@ -36,7 +36,7 @@ class Recorder{
         recorder: null,
         connection: null,
         fileName: null,
-        websocketEndpoint: 'ws://' + this.options.sessionId + '__' + this.options.userId + '@localhost:7000'
+        websocketEndpoint: 'wss://' + this.options.sessionId + '__' + this.options.userId + '@localhost:7000'
     };
 
     constructor(options:{container:HTMLElement, userId:string, sessionId: string}){
@@ -115,25 +115,17 @@ class Recorder{
     };
 
     private beforeRecordStart(){
-        if(!this.controls.toolbar.startBtn.classList.contains('disable')){
-            this.controls.toolbar.startBtn.classList.add('disable');
-        }
-        if(this.controls.toolbar.stopBtn.classList.contains('disable')){
-            this.controls.toolbar.stopBtn.classList.remove('disable');
-        }
+        DomUtils.hide(this.controls.toolbar.startBtn);
+        DomUtils.show(this.controls.toolbar.stopBtn);
     }
 
     private afterRecordStop(){
-        if(this.controls.toolbar.startBtn.classList.contains('disable')){
-            this.controls.toolbar.startBtn.classList.remove('disable');
-        }
-        if(!this.controls.toolbar.stopBtn.classList.contains('disable')){
-            this.controls.toolbar.stopBtn.classList.add('disable');
-        }
+        DomUtils.hide(this.controls.toolbar.stopBtn);
+        DomUtils.show(this.controls.toolbar.startBtn);
     }
 
     private getRecorder() {
-        var options = {mimeType: 'video/webm', bitsPerSecond: 100000};
+        var options = {mimeType: 'video/webm', audioBitsPerSecond: 128000};
         this.data.recorder = new window['MediaRecorder'](this.data.mediaStream, options);
         this.data.recorder.ondataavailable = this.videoDataHandler.bind(this);
     };
@@ -145,7 +137,7 @@ class Recorder{
             command: 'FILE_TOKEN',
             token: this.data.fileName
         }));
-        this.data.recorder.start(10);
+        this.data.recorder.start(1000);
     }
 
     private stopRecording(eve){
